@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sella – Workplace Hospitality in 5 Years</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --forest-900: #0F2A1F;
+    --forest-800: #143526;
+    --forest-700: #1B4332;
+    --forest-600: #234F3D;
+    --forest-500: #2D6A4F;
+    --forest-400: #52B788;
+    --forest-50:  #EDF4EF;
+    --cream-50:   #FBF8F3;
+    --cream-100:  #F8F4EE;
+    --cream-200:  #EFE7D8;
+    --cream-300:  #E2D6BF;
+    --gold-50:    #FAF4E0;
+    --gold-100:   #F1E5B7;
+    --gold-500:   #C9A84C;
+    --gold-700:   #7E662A;
+    --ink:        #1a1a2e;
+    --ink-soft:   #3B3F4A;
+    --ink-muted:  #6B7280;
+  }
+
+  html, body { margin: 0; padding: 0; background: #1a1a2e; color: var(--ink); }
+  body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+  deck-stage { display: block; }
+
+  .slide {
+    width: 1920px; height: 1080px;
+    background: var(--cream-100);
+    position: relative;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+  }
+
+  /* ─── Typography ─── */
+  .serif      { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; letter-spacing: -0.01em; line-height: 0.96; }
+  .display    { font-family: 'Poppins', 'Inter', sans-serif; font-weight: 600; letter-spacing: -0.01em; }
+  .sella-mark { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; letter-spacing: -0.01em; }
+
+  .kicker { font-size: 16px; text-transform: uppercase; letter-spacing: 0.22em; font-weight: 700; color: var(--gold-700); }
+  .h1 { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 88px; line-height: 0.98; letter-spacing: -0.02em; }
+  .h2 { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 64px; line-height: 1.02; letter-spacing: -0.018em; }
+  .h3 { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 36px; line-height: 1.1; letter-spacing: -0.014em; }
+  .lede { font-size: 26px; line-height: 1.4; color: var(--ink-soft); font-weight: 400; }
+  .body { font-size: 21px; line-height: 1.55; color: var(--ink-soft); }
+  .micro { font-size: 14px; color: var(--ink-muted); }
+
+  /* ─── Chrome ─── */
+  .slide-chrome-top {
+    position: absolute; inset: 36px 60px auto 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700;
+    color: var(--ink-muted);
+  }
+  .slide-chrome-top .num { color: var(--forest-700); }
+  .slide-chrome-bottom {
+    position: absolute; left: 60px; right: 60px; bottom: 36px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600;
+    color: var(--ink-muted);
+  }
+
+  /* Logo */
+  .logo { display: inline-flex; align-items: center; gap: 10px; }
+  .logo .mark { width: 28px; height: 28px; }
+  .logo .name { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 26px; color: var(--forest-700); line-height: 1; }
+  .logo.cream .name { color: var(--cream-50); }
+  .logo.cream .mark .circ { stroke: var(--cream-50); }
+  .logo.cream .mark .leaf { stroke: var(--cream-50); }
+
+  /* ─── Backgrounds ─── */
+  .bg-forest {
+    background:
+      radial-gradient(120% 100% at 0% 0%, rgba(82,183,136,0.18), transparent 55%),
+      radial-gradient(120% 100% at 100% 100%, rgba(201,168,76,0.22), transparent 55%),
+      linear-gradient(180deg, #1B4332 0%, #0F2A1F 100%);
+    color: var(--cream-50);
+  }
+  .bg-cream-soft { background: var(--cream-50); }
+  .bg-cream      { background: var(--cream-100); }
+
+  .dot-divider {
+    background-image: radial-gradient(circle, currentColor 1px, transparent 1.5px);
+    background-size: 8px 1px; background-repeat: repeat-x; background-position: center;
+    height: 1px; color: rgba(27,67,50,0.25);
+  }
+
+  /* ─── Blocks ─── */
+  .card {
+    background: white; border-radius: 24px; padding: 32px;
+    box-shadow: 0 1px 2px rgba(15,42,31,0.04), 0 10px 30px -12px rgba(15,42,31,0.12);
+  }
+  .card-flat { background: var(--cream-50); border-radius: 24px; padding: 28px; }
+  .pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; font-size: 14px; font-weight: 600; }
+  .pill.gold        { background: var(--gold-50);  color: var(--gold-700);  border: 1px solid var(--gold-100); }
+  .pill.forest      { background: var(--forest-700); color: var(--cream-50); }
+  .pill.cream-ghost { background: rgba(248,244,238,0.12); color: var(--cream-50); border: 1px solid rgba(248,244,238,0.22); }
+  .pill.green-soft  { background: var(--forest-50); color: var(--forest-700); }
+
+  .num-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 56px; height: 56px; border-radius: 999px;
+    background: var(--forest-50); color: var(--forest-700);
+    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 22px;
+  }
+
+  /* ─── Demo frame ─── */
+  .demo-frame {
+    position: relative; border-radius: 28px; overflow: hidden;
+    background: var(--cream-100);
+    box-shadow: 0 4px 8px rgba(15,42,31,0.06), 0 30px 80px -20px rgba(15,42,31,0.35);
+  }
+  .demo-frame.mobile { width: 440px; height: 820px; }
+  .demo-frame.admin  { width: 1280px; height: 720px; }
+  .demo-frame iframe { width: 100%; height: 100%; border: 0; display: block; background: var(--cream-100); }
+
+  .demo-cue {
+    background: white; border-radius: 16px; padding: 12px 16px;
+    box-shadow: 0 1px 2px rgba(15,42,31,0.05), 0 8px 24px -8px rgba(15,42,31,0.1);
+    display: flex; gap: 12px; align-items: center;
+    font-size: 16px; color: var(--ink);
+  }
+  .demo-cue .num {
+    width: 28px; height: 28px; border-radius: 999px;
+    background: var(--gold-500); color: var(--forest-900);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 13px; flex-shrink: 0;
+  }
+
+  .ai-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 14px; border-radius: 999px;
+    background: var(--gold-50); color: var(--gold-700);
+    border: 1px solid var(--gold-100);
+    font-size: 14px; font-weight: 600;
+  }
+  .ai-badge.ghost {
+    background: rgba(248,244,238,0.1); color: var(--cream-50);
+    border-color: rgba(248,244,238,0.2);
+  }
+
+  .stat { display: flex; flex-direction: column; gap: 4px; }
+  .stat .num { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 84px; line-height: 1; letter-spacing: -0.02em; color: var(--forest-700); }
+  .stat .lbl { font-size: 15px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink-muted); font-weight: 700; margin-top: 6px; }
+  .stat .sub { font-size: 17px; color: var(--ink-soft); margin-top: 2px; }
+
+  .gold    { color: var(--gold-500); }
+  .cream-50 { color: var(--cream-50); }
+  .cream-70 { color: rgba(248,244,238,0.7); }
+
+  .pip { position: relative; padding-left: 36px; }
+  .pip::before {
+    content: ''; position: absolute; left: 0; top: 12px;
+    width: 12px; height: 12px; border-radius: 999px;
+    background: var(--gold-500); box-shadow: 0 0 0 6px rgba(201,168,76,0.18);
+  }
+  .pip.forest::before { background: var(--forest-500); box-shadow: 0 0 0 6px rgba(82,183,136,0.18); }
+
+  .row  { display: flex; }
+  .grid { display: grid; }
+  .gap-4 { gap: 16px; } .gap-6 { gap: 24px; } .gap-8 { gap: 32px; } .gap-10 { gap: 40px; }
+  .mt-2 { margin-top: 8px; }  .mt-4 { margin-top: 16px; } .mt-6 { margin-top: 24px; }
+  .mt-8 { margin-top: 32px; } .mt-10 { margin-top: 40px; } .mt-12 { margin-top: 48px; }
+  .mt-16 { margin-top: 64px; }
+  .text-cream  { color: var(--cream-50); }
+  .text-forest { color: var(--forest-700); }
+  .text-gold   { color: var(--gold-700); }
+  .text-muted  { color: var(--ink-muted); }
+  .b { font-weight: 700; }
+
+  .layout-pad   { padding: 160px 120px 100px 120px; }
+  .layout-hero  { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+  .layout-center{ display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+
+  .deco-leaf { position: absolute; opacity: 0.06; pointer-events: none; }
+
+  /* ─── Architecture layers ─── */
+  .arch { display: flex; flex-direction: column; gap: 18px; width: 100%; }
+  .arch .layer {
+    border-radius: 24px; padding: 28px 32px;
+    display: flex; align-items: center; gap: 24px;
+    border: 1px solid rgba(27,67,50,0.08);
+  }
+  .arch .layer .lbl-side { width: 220px; }
+  .arch .layer .lbl-side .name { font-family: 'Poppins'; font-weight: 700; font-size: 22px; color: var(--forest-700); }
+  .arch .layer .lbl-side .who { font-size: 14px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.16em; font-weight: 700; margin-bottom: 4px; }
+  .arch .layer .desc { color: var(--ink-soft); font-size: 18px; flex: 1; }
+  .arch .layer.top { background: var(--cream-50); }
+  .arch .layer.mid { background: var(--forest-700); color: var(--cream-50); border-color: transparent; }
+  .arch .layer.mid .lbl-side .name, .arch .layer.mid .lbl-side .who { color: var(--cream-50); }
+  .arch .layer.mid .desc { color: rgba(248,244,238,0.8); }
+  .arch .layer.bot { background: white; }
+
+  /* ─── Pillars ─── */
+  .pillars { display: grid; gap: 20px; }
+  .pillar {
+    background: white; border-radius: 22px; padding: 28px;
+    box-shadow: 0 1px 2px rgba(15,42,31,0.04), 0 10px 28px -14px rgba(15,42,31,0.12);
+    border-top: 4px solid var(--gold-500);
+  }
+  .pillar .ix { font-size: 14px; color: var(--ink-muted); font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .pillar .nm { font-family: 'Poppins'; font-weight: 700; font-size: 30px; color: var(--ink); margin-top: 8px; line-height: 1.05; }
+  .pillar .dx { color: var(--ink-soft); font-size: 17px; line-height: 1.5; margin-top: 12px; }
+
+  /* ─── Shift cards ─── */
+  .shifts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .shift {
+    background: white; border-radius: 22px; padding: 28px;
+    border: 1px solid rgba(27,67,50,0.06);
+    display: flex; flex-direction: column; gap: 14px;
+    position: relative; overflow: hidden;
+  }
+  .shift::before {
+    content: ''; position: absolute; left: 28px; top: 28px;
+    width: 36px; height: 36px; border-radius: 999px;
+    background: var(--gold-50); border: 1px solid var(--gold-100);
+  }
+  .shift .arrow { position: absolute; left: 36px; top: 33px; font-weight: 700; color: var(--gold-700); font-size: 18px; line-height: 1; }
+  .shift .from  { font-size: 18px; color: var(--ink-muted); margin-top: 56px; }
+  .shift .to    { font-family: 'Poppins'; font-weight: 700; font-size: 26px; color: var(--ink); line-height: 1.1; }
+  .shift .note  { font-size: 15px; color: var(--ink-soft); margin-top: 4px; }
+
+  /* ─── Day clock ─── */
+  .day-clock { position: relative; width: 520px; height: 520px; }
+  .day-clock .face {
+    width: 100%; height: 100%; border-radius: 50%;
+    background: radial-gradient(circle, var(--cream-50) 60%, var(--cream-100) 100%);
+    border: 2px dashed rgba(27,67,50,0.18);
+    position: relative;
+  }
+  .day-clock .center {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    text-align: center;
+  }
+  .day-clock .pip-item {
+    position: absolute;
+    background: white; border-radius: 999px; padding: 10px 16px;
+    font-size: 14px; font-weight: 600;
+    box-shadow: 0 6px 18px -6px rgba(15,42,31,0.18);
+    display: flex; align-items: center; gap: 8px;
+    transform: translate(-50%,-50%);
+    white-space: nowrap;
+  }
+  .day-clock .pip-item .t    { color: var(--gold-700); font-weight: 700; }
+  .day-clock .pip-item .icon { font-size: 17px; }
+
+  /* ─── Phases ─── */
+  .phases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .phase {
+    background: white; border-radius: 22px; padding: 28px;
+    border-top: 6px solid var(--forest-500);
+    box-shadow: 0 8px 22px -12px rgba(15,42,31,0.15);
+  }
+  .phase.b { border-top-color: var(--gold-500); }
+  .phase.c { border-top-color: var(--forest-700); }
+  .phase .days { font-size: 14px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.18em; font-weight: 700; }
+  .phase .name { font-family: 'Poppins'; font-weight: 700; font-size: 28px; color: var(--ink); margin-top: 6px; }
+  .phase ul { margin: 16px 0 0; padding: 0; list-style: none; }
+  .phase li { font-size: 16px; color: var(--ink-soft); padding-left: 20px; position: relative; margin-bottom: 8px; line-height: 1.5; }
+  .phase li::before { content: '→'; position: absolute; left: 0; top: 0; color: var(--gold-500); font-weight: 700; }
+
+  /* ─── Sites ─── */
+  .sites { display: grid; grid-template-columns: repeat(5,1fr); gap: 16px; }
+  .site { background: white; border-radius: 18px; padding: 22px; }
+  .site .flag { font-size: 28px; }
+  .site .nm   { font-family: 'Poppins'; font-weight: 700; font-size: 18px; color: var(--ink); margin-top: 6px; }
+  .site .meta { font-size: 13px; color: var(--ink-muted); margin-top: 2px; }
+  .site .tag  { font-size: 13px; color: var(--forest-700); margin-top: 10px; }
+
+  /* ─── KPIs ─── */
+  .kpis { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+  .kpi { background: white; border-radius: 22px; padding: 28px; }
+  .kpi .lbl { font-size: 14px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink-muted); font-weight: 700; }
+  .kpi .num { font-family: 'Poppins'; font-weight: 700; font-size: 64px; color: var(--forest-700); line-height: 1; margin-top: 10px; letter-spacing: -0.02em; }
+  .kpi .num.gold { color: var(--gold-700); }
+  .kpi .sub { font-size: 15px; color: var(--ink-soft); margin-top: 8px; }
+
+  /* ─── CTA ─── */
+  .cta-link {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--forest-700); color: var(--cream-50);
+    text-decoration: none; padding: 16px 28px; border-radius: 14px;
+    font-weight: 700; font-size: 19px;
+    box-shadow: 0 4px 12px -4px rgba(15,42,31,0.3), 0 12px 32px -12px rgba(15,42,31,0.4);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    border: 2px solid var(--gold-500);
+  }
+  .cta-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px -4px rgba(15,42,31,0.35), 0 16px 40px -12px rgba(15,42,31,0.5);
+  }
+  .cta-link .arrow { color: var(--gold-500); font-size: 24px; line-height: 1; }
+  .cta-url { display: block; margin-top: 10px; font-family: 'Inter', monospace; font-size: 13px; color: var(--ink-muted); letter-spacing: 0.02em; }
+  .cta-url .dot { color: var(--gold-700); }
+
+  .role {
+    background: var(--forest-700); color: var(--cream-50);
+    border-radius: 28px; padding: 40px;
+    background-image:
+      radial-gradient(120% 100% at 0% 0%, rgba(82,183,136,0.16), transparent 55%),
+      radial-gradient(120% 100% at 100% 100%, rgba(201,168,76,0.16), transparent 55%);
+  }
+</style>
+
+<script src="deck-stage.js"></script>
+</head>
+<body>
+<deck-stage>
+
+<!-- ──────────────────── 01 · TITLE ──────────────────── -->
+<section class="slide bg-forest" data-screen-label="01 · Opening">
+  <div class="slide-chrome-top" style="color: rgba(248,244,238,0.5);">
+    <div><span style="color:var(--gold-500);">01</span> / 15 · OPENING</div>
+    <div class="logo cream">
+      <svg class="mark" viewBox="0 0 32 32" fill="none"><circle class="circ" cx="16" cy="16" r="15" stroke="currentColor" stroke-width="1.2"/><path class="leaf" d="M11 19c2 1.5 8 1.5 10 -2c-2 0.5 -6 0.5 -8 -1.5c-1.5 -1.5 -.5 -4 2 -4.5c2.5 -.5 5 1 6 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="22" cy="11" r="1.6" fill="#C9A84C"/></svg>
+      <span class="name">Sella</span>
+    </div>
+  </div>
+
+  <div class="layout-pad" style="padding-top:300px;">
+    <div class="kicker" style="color:var(--gold-500);">Yarzin-Sella · Operations Manager candidate</div>
+    <div class="serif text-cream mt-10" style="font-size:104px; line-height:1.02; max-width:1640px;">
+      What will workplace hospitality<br/>
+      <span class="gold">look like</span> in five years?
+    </div>
+    <div class="mt-12" style="max-width: 1100px; font-size:26px; line-height:1.5; color: rgba(248,244,238,0.72);">
+      A case for the next chapter of Yarzin-Sella —<br/>
+      and a working prototype of what gets us there.
+    </div>
+    <div class="mt-10 row gap-4" style="align-items:center;">
+      <div class="pill cream-ghost">Vision</div>
+      <div class="pill cream-ghost">Operations</div>
+      <div class="pill cream-ghost">Experience</div>
+      <div class="pill cream-ghost">Leadership</div>
+      <div class="pill cream-ghost">Execution</div>
+    </div>
+  </div>
+
+  <div class="slide-chrome-bottom" style="color: rgba(248,244,238,0.5);">
+    <div>Shira Wagner · May 2026</div>
+    <div>Live prototype · sella-xi.vercel.app</div>
+  </div>
+
+  <svg class="deco-leaf" style="right:-80px;top:-80px;width:600px;height:600px;color:var(--cream-50);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M20 4s-9-1-14 4-3 12-3 12 7 1 12-4 5-12 5-12z"/><path d="M3 21 14 10"/></svg>
+</section>
+
+<!-- ──────────────────── 02 · THE SHIFT ──────────────────── -->
+<section class="slide bg-cream" data-screen-label="02 · Why Now">
+  <div class="slide-chrome-top">
+    <div><span class="num">02</span> / 15 · WHY NOW</div>
+    <div class="logo"><svg class="mark" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="var(--forest-700)" stroke-width="1.2"/><path d="M11 19c2 1.5 8 1.5 10 -2c-2 0.5 -6 0.5 -8 -1.5c-1.5 -1.5 -.5 -4 2 -4.5c2.5 -.5 5 1 6 2.5" stroke="var(--forest-700)" stroke-width="1.6" stroke-linecap="round" fill="none"/><circle cx="22" cy="11" r="1.6" fill="#C9A84C"/></svg><span class="name">Sella</span></div>
+  </div>
+
+  <div class="layout-pad" style="padding-top:160px;">
+    <div class="kicker">The shift</div>
+    <h1 class="h1 mt-4">The cafeteria isn't a cafeteria anymore.</h1>
+    <p class="lede mt-6" style="max-width:1200px;">
+      Four forces are converging at the same time. None of them are food problems.
+      All of them land on the hospitality team's desk.
+    </p>
+
+    <div class="shifts mt-16">
+      <div class="shift">
+        <div class="arrow">↑</div>
+        <div class="from">Hybrid work</div>
+        <div class="to">The office has to<br/>earn the commute</div>
+        <div class="note">From "default" to "destination." Lunch is now part of the value proposition for showing up.</div>
+      </div>
+      <div class="shift">
+        <div class="arrow">↑</div>
+        <div class="from">Talent compression</div>
+        <div class="to">Hospitality is recruitment</div>
+        <div class="note">Glassdoor mentions "food culture" 4× more often than five years ago. The cafeteria is on the offer letter.</div>
+      </div>
+      <div class="shift">
+        <div class="arrow">↑</div>
+        <div class="from">Wellness expectations</div>
+        <div class="to">Boutique-hotel,<br/>not corporate-canteen</div>
+        <div class="note">Employees compare lunch to their favorite café, and the studio to their boutique gym.</div>
+      </div>
+      <div class="shift">
+        <div class="arrow">↑</div>
+        <div class="from">ESG mandate</div>
+        <div class="to">Accountable,<br/>not aspirational</div>
+        <div class="note">CFOs and CSR teams now demand plate-level data on waste, plant-based ratio, and CO₂ — not estimates.</div>
+      </div>
+    </div>
+
+    <div class="mt-12 row gap-6" style="align-items:center;">
+      <div class="ai-badge">⚡ The change is structural, not cyclical.</div>
+      <div class="micro" style="font-size:16px;">— and the operators who adapt the model first will own the next decade.</div>
+    </div>
+  </div>
+
+  <div class="slide-chrome-bottom"><div>Sella · A vision for Yarzin-Sella</div><div>02 / 15</div></div>
+</section>
+
+<!-- ──────────────────── 03 · VISION – EMPLOYEES ──────────────────── -->
+<section class="slide bg-cream-soft" data-screen-label="03 · Vision · Employees">
+  <div class="slide-chrome-top">
+    <div><span class="num">03</span> / 15 · VISION</div>
+    <div class="logo"><svg class="mark" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="var(--forest-700)" stroke-width="1.2"/><path d="M11 19c2 1.5 8 1.5 10 -2c-2 0.5 -6 0.5 -8 -1.5c-1.5 -1.5 -.5 -4 2 -4.5c2.5 -.5 5 1 6 2.5" stroke="var(--forest-700)" stroke-width="1.6" stroke-linecap="round" fill="none"/><circle cx="22" cy="11" r="1.6" fill="#C9A84C"/></svg><span class="name">Sella</span></div>
+  </div>
+
+  <div class="layout-pad" style="padding-top:140px;">
+    <div class="kicker">Vision · Employees in 2030</div>
+    <h2 class="h2 mt-4">Five things they'll expect —<br/>and not say "thank you" for.</h2>
+    <p class="lede mt-6" style="max-width:1100px;">These aren't perks anymore. They're table stakes.</p>
+
+    <div class="pillars mt-12" style="grid-template-columns: repeat(5, 1fr);">
+      <div class="pillar">
+        <div class="ix">01</div><div class="nm">Personal</div>
+        <div class="dx">Every meal, drink and class fits me. The system knows my allergens, my regulars, my Tuesday usual.</div>
+      </div>
+      <div class="pillar">
+        <div class="ix">02</div><div class="nm">Continuous</div>
+        <div class="dx">Morning ritual, lunch, afternoon class, Friday brunch — one program. Not five disconnected services.</div>
+      </div>
+      <div class="pillar">
+        <div class="ix">03</div><div class="nm">Wellness-led</div>
+        <div class="dx">Body, mind, fuel, recovery. The chef and the yoga instructor speak the same language.</div>
+      </div>
+      <div class="pillar">
+        <div class="ix">04</div><div class="nm">Social</div>
+        <div class="dx">Tables saved for teams. Events the community shows up for. Hospitality as the reason to come in.</div>
+      </div>
+      <div class="pillar">
+        <div class="ix">05</div><div class="nm">Invisible</div>
+        <div class="dx">The system anticipates. You don't fill in a form — you just live your day, and it works.</div>
+      </div>
+    </div>
+
+    <div class="mt-12 row gap-4" style="align-items:center;">
+      <div class="ai-badge">The new bar: "feels like a boutique hotel ran my office."</div>
+    </div>
+  </div>
+
+  <div class="slide-chrome-bottom"><div>Vision</div><div>03 / 15</div></div>
+</section>
+
+<!-- ──────────────────── 04 · VISION – CLIENTS ──────────────────── -->
+<section class="slide bg-cream" data-screen-label="04 · Vision · Clients">
+  <div class="slide-chrome-top">
+    <div><span class="num">04</span> / 15 · VISION</div>
+    <div class="logo"><svg class="mark" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="var(--forest-700)" stroke-width="1.2"/><path d="M11 19c2 1.5 8 1.5 10 -2c-2 0.5 -6 0.5 -8 -1.5c-1.5 -1.5 -.5 -4 2 -4.5c2.5 -.5 5 1 6 2.5" stroke="var(--forest-700)" stroke-width="1.6" stroke-linecap="round" fill="none"/><circle cx="22" cy="11" r="1.6" fill="#C9A84C"/></svg><span class="name">Sella</span></div>
+  </div>
+
+  <div class="layout-pad" style="padding-top:140px;">
+    <div class="kicker">Vision · Hi-tech clients in 2030</div>
+    <h2 class="h2 mt-4">What CFOs and People leaders will<br/>actually buy us for.</h2>
+
+    <div class="grid mt-12 gap-6" style="grid-template-columns: repeat(2, 1fr);">
+      <div class="card" style="display:flex;gap:24px;">
+        <div class="num-badge">01</div>
+        <div>
+          <div class="h3" style="font-size:30px;">Measurable ROI on hospitality</div>
+          <div class="body mt-2">Attendance, retention, NPS, and recruitment data — not anecdotes. Hospitality becomes a line in the People + Real Estate strategy.</div>
+        </div>
+      </div>
+      <div class="card" style="display:flex;gap:24px;">
+        <div class="num-badge">02</div>
+        <div>
+          <div class="h3" style="font-size:30px;">One intelligence layer</div>
+          <div class="body mt-2">Slack, Calendar, HR, badge access — all flow into a single brain that decides procurement, staffing, and program. No more spreadsheets and back-and-forth.</div>
+        </div>
+      </div>
+      <div class="card" style="display:flex;gap:24px;">
+        <div class="num-badge">03</div>
+        <div>
+          <div class="h3" style="font-size:30px;">Brand-grade hospitality</div>
+          <div class="body mt-2">"How is the food at &lt;company&gt;?" is a recruitment question. Workplace hospitality becomes an employer-brand asset — like the office building itself.</div>
+        </div>
+      </div>
+      <div class="card" style="display:flex;gap:24px;">
+        <div class="num-badge">04</div>
+        <div>
+          <div class="h3" style="font-size:30px;">ESG accountability</div>
+          <div class="body mt-2">Plate-level waste, plant-based ratio, CO₂ saved — auditable numbers the CSR team can actually publish. Not estimates. Not stories. Numbers.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 row gap-4" style="align-items:center;">
+      <div class="ai-badge">The client doesn't want a vendor. They want a strategic partner with a dashboard.</div>
+    </div>
+  </div>
+
+  <div class="slide-chrome-bottom"><div>Vision</div><div>04 / 15</div></div>
+</section>
+
+<!-- ──────────────────── 05 · INTRODUCING SELLA ──────────────────── -->
+<section class="slide bg-cream-soft" data-screen-label="05 · Sella Concept">
+  <div class="slide-chrome-top">
+    <div><span class="num">05</span> / 15 · MY ANSWER</div>
+    <div class="logo"><svg class="mark" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="var(--forest-700)" stroke-width="1.2"/><path d="M11 19c2 1.5 8 1.5 10 -2c-2 0.5 -6 0.5 -8 -1.5c-1.5 -1.5 -.5 -4 2 -4.5c2.5 -.5 5 1 6 2.5" stroke="var(--forest-700)" stroke-width="1.6" stroke-linecap="round" fill="none"/><circle cx="22" cy="11" r="1.6" fill="#C9A84C"/></svg><span class="name">Sella</span></div>
+  </div>
+
+  <div class="layout-pad" style="padding-top:140px;display:grid;grid-template-columns: 1.1fr 1fr; gap: 80px; align-items:center;">
+    <div>
+      <div class="kicker">Introducing</div>
+      <div class="serif text-forest mt-4" style="font-size:200px;line-height:0.9;">Sella</div>
+      <div class="h3 mt-4" style="color: var(--ink-soft); max-width: 700px; font-size:34px; line-height:1.25;">
+        The <span class="text-forest b">AI layer</span> for workplace hospitality.
+      </div>
+      <div class="body mt-8" style="max-width: 720px; font-size:22px;">
+        Sella doesn't replace your kitchen, your studio, or your culinary team. It sits on top — turning every signal across the office day into a personal experience for the employee, and an intelligent program for the operator.
+      </div>
+      <div class="mt-10 row gap-4">
+        <div class="pill gold">Working prototype</div>
+        <div class="pill green-soft">Built for Yarzin-Sella</div>
+      </div>
+    </div>
+
+    <div class="arch">
+      <div class="layer top">
+        <div class="lbl-side">
+          <div class="who">Layer 01 · For employees</div>
+          <div class="name">Experience</div>
+        </div>
+        <div class="desc">Morning ritual, day timeline, lunch, wellness, events. One app, the whole hospitality program of the office, personalized.</div>
+      </div>
+      <div class="layer mid">
+        <div class="lbl-side">
+          <div class="who">Layer 02 · The brain</div>
+          <div class="name">Intelligence</div>
+        </div>
+        <div class="desc">Demand forecasts, preference profiles, satisfaction signals, sustainability tracking — fused from calendar, badge, HR, prior plates.</div>
+      </div>
+      <div class="layer bot">
+        <div class="lbl-side">
+          <div class="who">Layer 03 · For operators</div>
+          <div class="name">Operations</div>
+        </div>
+        <div class="desc">Procurement, staffing, cross-site benchmarking, sustainability KPIs. Yarden's command center — and your CFO's accountability report.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-chrome-bottom"><div>The concept</div><div>05 / 15</div></div>
+</section>
+
+<!-- ──────────────────── 06 · LIVE DEMO – EMPLOYEE ──────────────────── -->
+<section class="slide bg-cream" data-screen-label="06 · Demo · Employee">
+  <div class="slide-chrome-top">
+    <div><span class="num">06</span> / 15 · THE EXPERIENCE</div>
+    <div class="logo"><svg class="mark" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="var(--forest-700)" stroke-width="1.2"/><path d="M11 19c2 1.5 8 1.5 10 -2c-2 0.5 -6 0.5 -8 -1.5c-1.5 -1.5 -.5 -4 2 -4.5c2.5 -.5 5 1 6 2.5" stroke="var(--forest-700)" stroke-width="1.6" stroke-linecap="round" fill="none"/><circle cx="22" cy="11" r="1.6" fill="#C9A84C"/></svg><span class="name">Sella</span></div>
+  </div>
+
+  <div class="layout-pad" style="padding-top: 110px; display:grid; grid-template-columns: 480px 1fr; gap: 64px; align-items: start;">
+    <div>
+      <div class="demo-frame mobile">
+        <iframe src="https://sella-xi.vercel.app/?view=employee&embed=1" title="Sella employee demo" allow="clipboard-read; clipboard-write"></iframe>
+      </div>
+      <div style="text-align:center; margin-top: 14px;">
+        <a href="https://sella-xi.vercel.app/" target="_blank" rel="noopener" class="cta-link" style="font-size:17px; padding: 12px 22px;">
+          <span>Open the live prototype</span>
+          <span class="arrow">→</span>
+        </a>
+        <div class="cta-url">sella-xi.vercel.app</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="kicker">The employee experience · Dana, 28, Senior PM</div>
+      <h2 class="h2 mt-4" style="font-size:54px;">A Tuesday morning,<br/>start to finish.</h2>
+
+      <div class="grid gap-4 mt-8" style="grid-template-columns: 1fr;">
+        <div class="demo-cue"><div class="num">1</div><div><b>The morning ritual.</b> The first thing she sees: "your usual at 09:15?" — coffee, avocado toast, green shake. One tap.</div></div>
+        <div class="demo-cue"><div class="num">2</div><div><b>The day timeline.</b> Coffee → HIIT at 12:15 → curated lunch → rate → Friday brunch. One screen. The whole hospitality day.</div></div>
+        <div class="demo-cue"><div class="num">3</div><div><b>Wellness, not just food.</b> 6 classes today. Smoothie bar. Chair-massage. Streak: 4 weeks.</div></div>
+        <div class="demo-cue"><div class="num">4</div><div><b>The chef remembered.</b> Last month she asked for tagine. Today, it's on the menu.</div></div>
+        <div class="demo-cue"><div class="num">5</div><div><b>Feedback in 10 seconds.</b> Mood + one tap + a note. Tomorrow's menu shifts because of it.</div></div>
+      </div>
+
+      <div class="card-flat mt-8" style="background: var(--forest-50); border-left: 6px solid var(--gold-500);">
+        <div class="kicker" style="color: var(--forest-700);">The story</div>
+        <div class="body mt-2" style="color: var(--ink); font-size:20px;">
+          "08:42. Dana opens Sella. The system already knows the office is at 73% today, her team is in, and the chef has the tagine she requested. By 09:15, her morning is at the espresso bar. By 12:30, she's at a table for six. By 13:55, she's left feedback the chef will read tonight."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-chrome-bottom"><div>The employee experience</div><div>06 / 15</div></div>
+</section>
+
+<!-- ──────────────────── 07 · LIVE DEMO – ADMIN ──────────────────── -->
+<section class="slide bg-cream-soft" data-screen-label="07 · Demo · Admin">
+  <div class="slide-chrome-top">
+    <div><span class="num">07</span> / 15 · THE OPS VIEW</div>
+    <div class="logo"><svg class="mark" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="var(--forest-700)" stroke-width="1.2"/><path d="M11 19c2 1.5 8 1.5 10 -2c-2 0.5 -6 0.5 -8 -1.5c-1.5 -1.5 -.5 -4 2 -4.5c2.5 -.5 5 1 6 2.5" stroke="var(--forest-700)" stroke-width="1.6" stroke-linecap="round" fill="none"/><circle cx="22" cy="11" r="1.6" fill="#C9A84C"/></svg><span class="name">Sella</span></div>
+  </div>
+
+  <div class="layout-pad" style="padding-top: 120px;">
+    <div class="row" style="justify-content: space-between; align-items: flex-end;">
+      <div>
+        <div class="kicker">The operator's view · Yarden, Site Manager</div>
+        <h2 class="h2 mt-4" style="font-size:52px;">The command center for hospitality.</h2>
+        <p class="lede mt-2" style="max-width:1200px;font-size:22px;">Tomorrow's forecast. Today's program. Cross-site benchmarking. Sustainability. One screen, three decisions before lunch.</p>
+      </div>
+      <div class="grid gap-4" style="grid-template-columns: repeat(3, 1fr); min-width: 720px;">
+        <div class="demo-cue"><div class="num">1</div><div><b>847 ± 6%</b> attendance projected for tomorrow.</div></div>
+        <div class="demo-cue"><div class="num">2</div><div><b>+15%</b> plant-based recommended — 94% consumption this week.</div></div>
+        <div class="demo-cue"><div class="num">3</div><div><b>Thu 12:30</b> alert: 40% over capacity. Two fixes drafted.</div></div>
+      </div>
+    </div>
+
+    <div class="mt-8" style="display:flex;justify-content:center;">
+      <div class="demo-frame admin" style="width: 1620px; height: 540px;">
+        <iframe src="https://sella-xi.vercel.app/?view=admin&embed=1" title="Sella admin demo" allow="clipboard-read; clipboard-write"></iframe>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top: 14px;">
+      <a href="https://sella-xi.vercel.app/?view=admin" target="_blank" rel="noopener" class="cta-link" style="font-size:17px; padding: 12px 22px;">
+        <span>Open the operator's dashboard</span>
+        <span class="arrow">→</span>
+      </a>
+      <div class="cta-url">sella-xi.vercel.app/?view=admin <span class="dot">·</span> scroll through all six sections</div>
+    </div>
+  </div>
+
+  <div class="slide-chrome-bottom"><div>The operator's view</div><div>07 / 15</div></div>
+</section>
+
+<!-- ──────────────────── 08 · THE ONE IDEA ──────────────────── -->
+<section class="slide bg-cream" data-screen-label="08 · The One Idea">
+  <div class="slide-chrome-top">
+    <div><span class="num">08</span> / 15 · EXPERIENCE DESIGN</div>
+    <div class="logo"><svg class="mark" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="var(--forest-700)" stroke-width="1.2"/><path d="M11 19c2 1.5 8 1.5 10 -2c-2 0.5 -6 0.5 -8 -1.5c-1.5 -1.5 -.5 -4 2 -4.5c2.5 -.5 5 1 6 2.5" stroke="var(--forest-700)" stroke-width="1.6" stroke-linecap="round" fill="none"/><circle cx="22" cy="11" r="1.6" fill="#C9A84C"/></svg><span class="name">Sella</span></div>
+  </div>
+
+  <div class="layout-pad" style="padding-top:130px;display:grid;grid-template-columns: 1.05fr 1fr; gap: 100px; align-items: center;">
+    <div>
+      <div class="kicker">The one idea I'd put in market first</div>
+      <h2 class="h2 mt-4" style="font-size:74px;">The <span class="text-forest">All-Day<br/>Hospitality Program</span>.</h2>
+      <p class="lede mt-6" style="max-width:760px;font-size:24px;">
+        Stop thinking <i>"cafeteria."</i> Start thinking <i>"concierge for the office."</i>
+      </p>
+      <p class="body mt-6" style="max-width:780px;font-size:21px;">
+        A single, choreographed program that runs from 07:30 to 18:30. Same boutique standard at every touch-point. The employee experiences one continuous moment of care. The operator runs it as one program — with one demand model, one staffing plan, one P&amp;L.
+      </p>
+
+      <div class="grid mt-8 gap-4" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="card-flat" style="padding:20px;">
+          <div class="kicker" style="font-size:13px;">For employees</div>
+          <div class="b mt-2" style="font-size:20px; line-height:1.2;">One experience, all day</div>
+        </div>
+        <div class="card-flat" style="padding:20px;">
+          <div class="kicker" style="font-size:13px;">For operators</div>
+          <div class="b mt-2" style="font-size:20px; line-height:1.2;">One demand model, one P&amp;L</div>
+        </div>
+        <div class="card-flat" style="padding:20px;">
+          <div class="kicker" style="font-size:13px;">For clients</div>
+          <div class="b mt-2" style="font-size:20px; line-height:1.2;">One vendor, one accountability</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:center;align-items:center;">
+      <div class="day-clock">
+        <div class="face">
+          <div class="center">
+            <div class="kicker" style="font-size:13px;">A day at the office</div>
+            <div class="serif text-forest" style="font-size:46px;margin-top:4px;">07:30 – 18:30</div>
+            <div class="micro mt-2">8 touchpoints · 1 program</div>
+          </div>
+          <div class="pip-item" style="left:50%; top:6%;"><span class="t">07:30</span><span class="icon">🧘</span> Sunrise Yoga</div>
+          <div class="pip-item" style="left:88%; top:24%;"><span class="t">08:45</span><span class="icon">☕</span> Coffee + Toast</div>
+          <div class="pip-item" style="left:96%; top:50%;"><span class="t">09:30</span><span class="icon">🥤</span> Wellness shake</div>
+          <div class="pip-item" style="left:88%; top:76%;"><span class="t">12:15</span><span class="icon">💪</span> HIIT Reset</div>
+          <div class="pip-item" style="left:50%; top:96%;"><span class="t">12:30</span><span class="icon">🍲</span> Lunch + team</div>
+          <div class="pip-item" style="left:12%; top:76%;"><span class="t">13:55</span><span class="icon">⭐</span> Rate &amp; signal</div>
+          <div class="pip-item" style="left:4%; top:50%;"><span class="t">17:00</span><span class="icon">🧘</span> Pilates Mat</div>
+          <div class="pip-item" style="left:12%; top:24%;"><span class="t">18:00</span><span class="icon">🎵</span> Sound bath</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-chrome-bottom"><div>Experience design · the one idea</div><div>08 / 15</div></div>
+</section>
+
+<!-- ──────────────────── 09 · OPERATIONAL THINKING ──────────────────── -->
+<section class="slide bg-cream-soft" data-screen-label="09 · Ops Thinking">
+  <div class="slide-chrome-top">
+    <div><span class="num">09</span> / 15 · OPERATIONAL THINKING</div>
+    <div class="logo"><svg class="mark" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="var(--forest-700)" stroke-width="1.2"/><path d="M11 19c2 1.5 8 1.5 10 -2c-2 0.5 -6 0.5 -8 -1.5c-1.5 -1.5 -.5 -4 2 -4.5c2.5 -.5 5 1 6 2.5" stroke="var(--forest-700)" stroke-width="1.6" stroke-linecap="round" fill="none"/><circle cx="22" cy="11" r="1.6" fill="#C9A84C"/></svg><span class="name">Sella</span></div>
+  </div>
+
+  <div class="layout-pad" style="padding-top:140px;">
+    <div class="kicker">How it stays innovative <i>and</i> scalable</div>
+    <h2 class="h2 mt-4">Four operating principles that<br/>keep both true at once.</h2>
+
+    <div class="grid mt-12 gap-6" style="grid-template-columns: repeat(2, 1fr);">
+      <div class="card" style="display:flex;gap:24px;">
+        <div class="num-badge">01</div>
+        <div>
+          <div class="h3" style="font-size:30px;">Standardized core, local flavor</div>
+          <div class="body mt-2">One playbook across sites — the morning ritual, the program structure, the platform, the brand. Menus, partners and themes adapt locally. Same chassis, regional skin.</div>
+        </div>
+      </div>
+      <div class="card" style="display:flex;gap:24px;">
+        <div class="num-badge">02</div>
+        <div>
+          <div class="h3" style="font-size:30px;">AI does math, humans do hospitality</div>
+          <div class="body mt-2">Sella forecasts attendance, predicts portions, drafts staffing. The team spends those hours on the floor — on plates, on people, on the parts a machine can't do.</div>
+        </div>
+      </div>
+      <div class="card" style="display:flex;gap:24px;">
+        <div class="num-badge">03</div>
+        <div>
+          <div class="h3" style="font-size:30px;">Outcomes, not throughput</div>
+          <div class="body mt-2">We stop measuring "covers." We measure NPS, attendance lift, recruitment mentions, waste reduction. Throughput is a means; outcomes are the contract.</div>
+        </div>
+      </div>
+      <div class="card" style="display:flex;gap:24px;">
+        <div class="num-badge">04</div>
+        <div>
+          <div class="h3" style="font-size:30px;">Lean teams, deep skills</div>
+          <div class="body mt-2">Fewer people per site, but each one operating closer to a hotelier or a brand director than a canteen supervisor. Empowered to spend, decide, and improvise.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 row gap-4">
+      <div class="ai-badge">Innovation is not a "lab." It's a default operating mode.</div>
+    </div>
+  </div>
+
+  <div class="slide-chrome-bottom"><div>Operational thinking</div><div>09 / 15</div></div>
+</section>
+
+<!-- ──────────────────── 10 · LEADERSHIP ──────────────────── -->
+<section class="slide bg-cream" data-screen-label="10 · Leadership">
+  <div class="slide-chrome-top">
+    <div><span class="num">10</span> / 15 · LEADERSHIP</div>
+    <div class="logo"><svg class="mark" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="var(--forest-700)" stroke-width="1.2"/><path d="M11 19c2 1.5 8 1.5 10 -2c-2 0.5 -6 0.5 -8 -1.5c-1.5 -1.5 -.5 -4 2 -4.5c2.5 -.5 5 1 6 2.5" stroke="var(--forest-700)" stroke-width="1.6" stroke-linecap="round" fill="none"/><circle cx="22" cy="11" r="1.6" fill="#C9A84C"/></svg><span class="name">Sella</span></div>
+  </div>
+
+  <div class="layout-pad" style="padding-top:130px; display:grid; grid-template-columns: 1fr 1fr; gap: 60px;">
+    <div>
+      <div class="kicker">Leadership</div>
+      <h2 class="h2 mt-4" style="font-size:60px; line-height: 1.12;">From <i>supervisor</i><br/>to <span class="text-forest">Hospitality Experience Director</span>.</h2>
+      <p class="lede mt-6" style="font-size:22px;">A new role profile — and a leaner team structure built around it.</p>
+
+      <div class="mt-8">
+        <div class="kicker" style="font-size:14px;">The five capabilities that matter</div>
+        <div class="mt-4 grid gap-4">
+          <div class="row gap-4" style="align-items:center;"><div class="num-badge" style="width:42px;height:42px;font-size:17px;">1</div><div class="body" style="font-size:20px;"><b>Data-literate.</b> Reads a dashboard. Asks "why" of the numbers, not "what."</div></div>
+          <div class="row gap-4" style="align-items:center;"><div class="num-badge" style="width:42px;height:42px;font-size:17px;">2</div><div class="body" style="font-size:20px;"><b>Hospitality DNA.</b> Has worked a boutique hotel, a restaurant floor, or both. Knows what "the moment" feels like.</div></div>
+          <div class="row gap-4" style="align-items:center;"><div class="num-badge" style="width:42px;height:42px;font-size:17px;">3</div><div class="body" style="font-size:20px;"><b>Community builder.</b> Designs events. Knows their employees by name within two weeks.</div></div>
+          <div class="row gap-4" style="align-items:center;"><div class="num-badge" style="width:42px;height:42px;font-size:17px;">4</div><div class="body" style="font-size:20px;"><b>Partner orchestrator.</b> Manages chefs, instructors, vendors, AI tools — as one ensemble.</div></div>
+          <div class="row gap-4" style="align-items:center;"><div class="num-badge" style="width:42px;height:42px;font-size:17px;">5</div><div class="body" style="font-size:20px;"><b>Storyteller.</b> Sells the program back to the client every quarter. Owns the narrative.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="role">
+        <div class="ai-badge ghost">The team that runs a site</div>
+        <div class="serif cream-50 mt-6" style="font-size:60px;line-height:0.95;">Small.<br/>Deep.<br/>Connected.</div>
+
+        <div class="mt-10 grid gap-4">
+          <div style="border-bottom: 1px solid rgba(248,244,238,0.15); padding-bottom: 14px;">
+            <div class="kicker" style="color: var(--gold-500); font-size:13px;">1 per site</div>
+            <div class="b cream-50 mt-1" style="font-size:24px;">Experience Director</div>
+            <div class="cream-70 mt-1" style="font-size:16px;">Owns NPS, brand, program. The face of Yarzin-Sella on site.</div>
+          </div>
+          <div style="border-bottom: 1px solid rgba(248,244,238,0.15); padding-bottom: 14px;">
+            <div class="kicker" style="color: var(--gold-500); font-size:13px;">1 per site</div>
+            <div class="b cream-50 mt-1" style="font-size:24px;">Culinary Lead</div>
+            <div class="cream-70 mt-1" style="font-size:16px;">Owns the menu, the kitchen, the chef partners. Reads the rating data daily.</div>
+          </div>
+          <div style="border-bottom: 1px solid rgba(248,244,238,0.15); padding-bottom: 14px;">
+            <div class="kicker" style="color: var(--gold-500); font-size:13px;">1 per 2–3 sites</div>
+            <div class="b cream-50 mt-1" style="font-size:24px;">Community &amp; Events Partner</div>
+            <div class="cream-70 mt-1" style="font-size:16px;">Designs events, wellness program, partner roster. Shared across a region.</div>
+          </div>
+          <div>
+            <div class="kicker" style="color: var(--gold-500); font-size:13px;">Lean core</div>
+            <div class="b cream-50 mt-1" style="font-size:24px;">Operating team</div>
+            <div class="cream-70 mt-1" style="font-size:16px;">Cooks, baristas, instructors — many via partner network. The roster flexes with the demand model.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-chrome-bottom"><div>Leadership · the new manager</div><div>10 / 15</div></div>
+</section>
+
+<!-- ──────────────────── 11 · EXECUTION – 90-day rollout ──────────────────── -->
+<section class="slide bg-cream-soft" data-screen-label="11 · 90-Day Rollout">
+  <div class="slide-chrome-top">
+    <div><span class="num">11</span> / 15 · EXECUTION</div>
+    <div class="logo"><svg class="mark" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="var(--forest-700)" stroke-width="1.2"/><path d="M11 19c2 1.5 8 1.5 10 -2c-2 0.5 -6 0.5 -8 -1.5c-1.5 -1.5 -.5 -4 2 -4.5c2.5 -.5 5 1 6 2.5" stroke="var(--forest-700)" stroke-width="1.6" stroke-linecap="round" fill="none"/><circle cx="22" cy="11" r="1.6" fill="#C9A84C"/></svg><span class="name">Sella</span></div>
+  </div>
+
+  <div class="layout-pad" style="padding-top:140px;">
+    <div class="kicker">Execution · From idea to live program</div>
+    <h2 class="h2 mt-4">Ninety days to a live, measurable rollout.</h2>
+    <p class="lede mt-6" style="max-width:1200px;">A pilot at TLV HQ, then a controlled expansion. No big-bang launches. Real numbers from day one.</p>
+
+    <div class="phases mt-10">
+      <div class="phase">
+        <div class="days">Days 01 – 30 · Pilot</div>
+        <div class="name">Tel Aviv HQ.<br/>One site. One belief.</div>
+        <ul>
+          <li>Install Sella. Establish baseline KPIs.</li>
+          <li>Soft-launch the morning ritual. Two breakfast experiments per week.</li>
+          <li>Open Wellness Tuesdays + Thursdays.</li>
+          <li>Train the on-site team on the new role profile.</li>
+          <li>Goal: prove the lift on NPS &amp; attendance.</li>
+        </ul>
+      </div>
+      <div class="phase b">
+        <div class="days">Days 31 – 60 · Refine + Replicate</div>
+        <div class="name">Herzliya + London.<br/>Test the playbook.</div>
+        <ul>
+          <li>Roll Sella to Herzliya &amp; London.</li>
+          <li>Tune for local preferences and time-zones.</li>
+          <li>First cross-site benchmarking dashboard live.</li>
+          <li>Hire / re-role two Experience Directors.</li>
+          <li>Goal: prove the playbook travels.</li>
+        </ul>
+      </div>
+      <div class="phase c">
+        <div class="days">Days 61 – 90 · Global</div>
+        <div class="name">Berlin + NYC.<br/>Whole network live.</div>
+        <ul>
+          <li>Berlin and NYC come online.</li>
+          <li>All five sites under cross-site KPIs.</li>
+          <li>First quarterly client business review with full dataset.</li>
+          <li>Lock the rollout template for the next 10 sites.</li>
+          <li>Goal: prove the model scales — and sells.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-10 row gap-6" style="align-items:center;">
+      <div class="kicker">Measure across all 90 days:</div>
+      <div class="pill gold">Attendance lift</div>
+      <div class="pill gold">NPS</div>
+      <div class="pill gold">Waste %</div>
+      <div class="pill gold">Cost / portion</div>
+      <div class="pill gold">Class fill rate</div>
+      <div class="pill gold">Recruitment mentions</div>
+    </div>
+  </div>
+
+  <div class="slide-chrome-bottom"><div>Execution · rollout</div><div>11 / 15</div></div>
+</section>
+
+<!-- ──────────────────── 12 · MULTI-SITE FRAMEWORK ──────────────────── -->
+<section class="slide bg-cream" data-screen-label="12 · Multi-Site">
+  <div class="slide-chrome-top">
+    <div><span class="num">12</span> / 15 · EXECUTION</div>
+    <div class="logo"><svg class="mark" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="var(--forest-700)" stroke-width="1.2"/><path d="M11 19c2 1.5 8 1.5 10 -2c-2 0.5 -6 0.5 -8 -1.5c-1.5 -1.5 -.5 -4 2 -4.5c2.5 -.5 5 1 6 2.5" stroke="var(--forest-700)" stroke-width="1.6" stroke-linecap="round" fill="none"/><circle cx="22" cy="11" r="1.6" fill="#C9A84C"/></svg><span class="name">Sella</span></div>
+  </div>
+
+  <div class="layout-pad" style="padding-top:140px;">
+    <div class="kicker">Execution · Across the network</div>
+    <h2 class="h2 mt-4">Same brand. Local flavor.</h2>
+    <p class="lede mt-6" style="max-width:1200px;">A two-layer model: one playbook the network shares — and the local soul each site keeps.</p>
+
+    <div class="sites mt-10">
+      <div class="site"><div class="flag">🇮🇱</div><div class="nm">Tel Aviv HQ</div><div class="meta">1,240 employees · flagship</div><div class="tag">Mediterranean · chef-led</div></div>
+      <div class="site"><div class="flag">🇮🇱</div><div class="nm">Herzliya</div><div class="meta">480 employees</div><div class="tag">Tech-park casual · grab-and-go</div></div>
+      <div class="site"><div class="flag">🇬🇧</div><div class="nm">London</div><div class="meta">320 employees</div><div class="tag">European seasonal · Modern British</div></div>
+      <div class="site"><div class="flag">🇩🇪</div><div class="nm">Berlin</div><div class="meta">210 employees</div><div class="tag">Plant-forward · Mitteleuropa</div></div>
+      <div class="site"><div class="flag">🇺🇸</div><div class="nm">New York</div><div class="meta">410 employees</div><div class="tag">Global comfort · 24/7 espresso</div></div>
+    </div>
+
+    <div class="grid mt-12 gap-6" style="grid-template-columns: 1fr 1fr;">
+      <div class="card-flat" style="background: var(--forest-700); color: var(--cream-50);">
+        <div class="kicker" style="color: var(--gold-500);">Shared across all sites</div>
+        <div class="h3 mt-3" style="color: var(--cream-50); font-size:30px;">The playbook</div>
+        <ul style="margin-top:14px; padding-left:0; list-style:none;">
+          <li style="padding:6px 0; border-bottom: 1px solid rgba(248,244,238,0.1); font-size:18px;">Morning ritual experience</li>
+          <li style="padding:6px 0; border-bottom: 1px solid rgba(248,244,238,0.1); font-size:18px;">All-day program structure</li>
+          <li style="padding:6px 0; border-bottom: 1px solid rgba(248,244,238,0.1); font-size:18px;">Sella platform + data</li>
+          <li style="padding:6px 0; border-bottom: 1px solid rgba(248,244,238,0.1); font-size:18px;">Brand standards + service language</li>
+          <li style="padding:6px 0; font-size:18px;">KPI framework + client reporting</li>
+        </ul>
+      </div>
+      <div class="card-flat">
+        <div class="kicker">Owned locally</div>
+        <div class="h3 mt-3" style="font-size:30px;">The soul</div>
+        <ul style="margin-top:14px; padding-left:0; list-style:none;">
+          <li style="padding:6px 0; border-bottom: 1px solid rgba(27,67,50,0.08); font-size:18px;">Menu — cultural &amp; seasonal</li>
+          <li style="padding:6px 0; border-bottom: 1px solid rgba(27,67,50,0.08); font-size:18px;">Wellness instructor &amp; partner roster</li>
+          <li style="padding:6px 0; border-bottom: 1px solid rgba(27,67,50,0.08); font-size:18px;">Event themes &amp; community moments</li>
+          <li style="padding:6px 0; border-bottom: 1px solid rgba(27,67,50,0.08); font-size:18px;">Languages &amp; service tone</li>
+          <li style="padding:6px 0; font-size:18px;">Local supplier &amp; sustainability network</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-chrome-bottom"><div>Execution · multi-site framework</div><div>12 / 15</div></div>
+</section>
+
+<!-- ──────────────────── 13 · FINANCIALS ──────────────────── -->
+<section class="slide bg-cream-soft" data-screen-label="13 · Financials">
+  <div class="slide-chrome-top">
+    <div><span class="num">13</span> / 15 · WHY IT PAYS</div>
+    <div class="logo"><svg class="mark" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="var(--forest-700)" stroke-width="1.2"/><path d="M11 19c2 1.5 8 1.5 10 -2c-2 0.5 -6 0.5 -8 -1.5c-1.5 -1.5 -.5 -4 2 -4.5c2.5 -.5 5 1 6 2.5" stroke="var(--forest-700)" stroke-width="1.6" stroke-linecap="round" fill="none"/><circle cx="22" cy="11" r="1.6" fill="#C9A84C"/></svg><span class="name">Sella</span></div>
+  </div>
+
+  <div class="layout-pad" style="padding-top:140px;">
+    <div class="kicker">Why this pays for itself</div>
+    <h2 class="h2 mt-4">The model is financially honest.</h2>
+    <p class="lede mt-6" style="max-width:1200px;">Numbers drawn from the working prototype. The intelligence layer doesn't add cost — it reallocates it.</p>
+
+    <div class="kpis mt-12">
+      <div class="kpi"><div class="lbl">Food waste</div><div class="num">–23%</div><div class="sub">vs. prior baseline. Target: –20% by Q3.</div></div>
+      <div class="kpi"><div class="lbl">Cost / portion</div><div class="num">₪14.20</div><div class="sub">vs. ₪15.00 planned. Industry avg: ₪17.40.</div></div>
+      <div class="kpi"><div class="lbl">Attendance</div><div class="num gold">+12%</div><div class="sub">vs. same week last year. Lunch covers up.</div></div>
+      <div class="kpi"><div class="lbl">NPS</div><div class="num">+67</div><div class="sub">Industry avg: +30. Trending +13 pts over 30 days.</div></div>
+    </div>
+
+    <div class="grid mt-12 gap-8" style="grid-template-columns: 1fr 1fr; align-items: start;">
+      <div class="card">
+        <div class="kicker">For the client</div>
+        <div class="h3 mt-2" style="font-size:28px;">A line item with a return.</div>
+        <div class="body mt-3" style="font-size:19px;">
+          For a 1,000-person site: a 12% attendance lift translates to ~120 more people on the floor on any given day — ROI on the real estate, the collaboration moments, and the recruitment story. Hospitality stops being "cost-of-doing-business" and starts being "growth-of-the-business."
+        </div>
+      </div>
+      <div class="card" style="background: var(--forest-700); color: var(--cream-50);">
+        <div class="kicker" style="color: var(--gold-500);">For Yarzin-Sella</div>
+        <div class="h3 mt-2" style="color: var(--cream-50); font-size:28px;">A defensible premium.</div>
+        <div class="body mt-3" style="color: rgba(248,244,238,0.85); font-size:19px;">
+          The intelligence layer is the moat. Clients renew on outcomes, not just service. Add-on programs (wellness, events, sustainability reporting) become a new revenue line. And the operating leverage from AI-driven forecasting compounds with every additional site.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-chrome-bottom"><div>Why this works financially</div><div>13 / 15</div></div>
+</section>
+
+<!-- ──────────────────── 14 · ESG + BRAND ──────────────────── -->
+<section class="slide bg-cream" data-screen-label="14 · ESG · Brand">
+  <div class="slide-chrome-top">
+    <div><span class="num">14</span> / 15 · SUSTAINABILITY &amp; BRAND</div>
+    <div class="logo"><svg class="mark" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="var(--forest-700)" stroke-width="1.2"/><path d="M11 19c2 1.5 8 1.5 10 -2c-2 0.5 -6 0.5 -8 -1.5c-1.5 -1.5 -.5 -4 2 -4.5c2.5 -.5 5 1 6 2.5" stroke="var(--forest-700)" stroke-width="1.6" stroke-linecap="round" fill="none"/><circle cx="22" cy="11" r="1.6" fill="#C9A84C"/></svg><span class="name">Sella</span></div>
+  </div>
+
+  <div class="layout-pad" style="padding-top:140px;">
+    <div class="kicker">Sustainability &amp; employer brand</div>
+    <h2 class="h2 mt-4">Numbers the CSR team can publish.<br/>Stories the recruiter can sell.</h2>
+
+    <div class="grid mt-12 gap-8" style="grid-template-columns: 1.2fr 1fr; align-items:start;">
+      <div class="card">
+        <div class="kicker">Sustainability · live numbers</div>
+        <div class="grid mt-6 gap-6" style="grid-template-columns: repeat(2, 1fr);">
+          <div class="stat">
+            <div class="lbl">Waste reduction</div>
+            <div class="num">–23%</div>
+            <div class="sub">vs. baseline · this month</div>
+          </div>
+          <div class="stat">
+            <div class="lbl">Plant-based</div>
+            <div class="num">41%</div>
+            <div class="sub">of meals sold · trending up</div>
+          </div>
+          <div class="stat">
+            <div class="lbl">CO₂ saved</div>
+            <div class="num">2.8t</div>
+            <div class="sub">this month · 14,000 km equivalent</div>
+          </div>
+          <div class="stat">
+            <div class="lbl">Local sourcing</div>
+            <div class="num">67%</div>
+            <div class="sub">of ingredients · target 75% by Q4</div>
+          </div>
+        </div>
+        <div class="dot-divider mt-8"></div>
+        <div class="body mt-6" style="font-size:19px;">
+          Every number above is auditable from Sella's plate-level data — not modeled, not estimated. That's the difference between a sustainability story and a sustainability report.
+        </div>
+      </div>
+
+      <div>
+        <div class="card-flat" style="background: var(--forest-700); color: var(--cream-50);">
+          <div class="kicker" style="color: var(--gold-500);">Employer brand</div>
+          <div class="h3 mt-3" style="color: var(--cream-50); font-size:30px;">"How is the food at &lt;company&gt;?"</div>
+          <div class="body mt-4" style="color: rgba(248,244,238,0.85); font-size:18px;">
+            Becomes a recruitment question, a Glassdoor signal, a LinkedIn screenshot. Hospitality is no longer the back of the office — it's on the front of the recruitment deck.
+          </div>
+        </div>
+        <div class="card-flat mt-6">
+          <div class="kicker">What the program delivers to the brand</div>
+          <ul style="margin-top:10px; padding:0; list-style:none;">
+            <li style="padding:8px 0; border-bottom: 1px solid rgba(27,67,50,0.08); font-size:18px;">🏆 A recruitment differentiator</li>
+            <li style="padding:8px 0; border-bottom: 1px solid rgba(27,67,50,0.08); font-size:18px;">🌿 A defensible ESG report</li>
+            <li style="padding:8px 0; border-bottom: 1px solid rgba(27,67,50,0.08); font-size:18px;">🌍 A consistent global brand experience</li>
+            <li style="padding:8px 0; font-size:18px;">💰 A story the People + Marketing teams can use</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-chrome-bottom"><div>Sustainability &amp; brand</div><div>14 / 15</div></div>
+</section>
+
+<!-- ──────────────────── 15 · CLOSING ──────────────────── -->
+<section class="slide bg-forest" data-screen-label="15 · Closing">
+  <div class="slide-chrome-top" style="color: rgba(248,244,238,0.5);">
+    <div><span style="color: var(--gold-500);">15</span> / 15 · CLOSING</div>
+    <div class="logo cream">
+      <svg class="mark" viewBox="0 0 32 32" fill="none"><circle class="circ" cx="16" cy="16" r="15" stroke="currentColor" stroke-width="1.2"/><path class="leaf" d="M11 19c2 1.5 8 1.5 10 -2c-2 0.5 -6 0.5 -8 -1.5c-1.5 -1.5 -.5 -4 2 -4.5c2.5 -.5 5 1 6 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="22" cy="11" r="1.6" fill="#C9A84C"/></svg>
+      <span class="name">Sella</span>
+    </div>
+  </div>
+
+  <div style="position: absolute; inset: 240px 120px 100px 120px; text-align: center;">
+    <div class="kicker" style="color: var(--gold-500);">Five years from now</div>
+    <div class="serif text-cream" style="font-size: 84px; line-height: 1.1; margin-top: 48px;">
+      The cafeteria isn't a cafeteria.<br/>
+      <span class="gold">It's the most personal moment<br/>of the office day.</span>
+    </div>
+    <div style="font-size: 24px; color: rgba(248,244,238,0.72); margin-top: 56px; line-height: 1.5;">
+      That's the bet. And that's where I'd want to help take Yarzin-Sella next.
+    </div>
+    <div style="margin-top: 56px; display: inline-flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+      <div class="pill cream-ghost" style="font-size:15px;">Thank you for the opportunity</div>
+      <a href="https://sella-xi.vercel.app/" target="_blank" rel="noopener" class="cta-link" style="font-size:16px; padding: 12px 22px;">
+        <span>Open the live prototype</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+    <div style="margin-top: 14px; font-size: 14px; color: rgba(248,244,238,0.6); letter-spacing: 0.04em;">sella-xi.vercel.app</div>
+  </div>
+
+  <div class="slide-chrome-bottom" style="color: rgba(248,244,238,0.5);">
+    <div>Shira Wagner · for Yarzin-Sella · May 2026</div>
+    <div>Live prototype · sella-xi.vercel.app</div>
+  </div>
+
+  <svg class="deco-leaf" style="left:-100px;bottom:-100px;width:700px;height:700px;color:var(--cream-50);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M20 4s-9-1-14 4-3 12-3 12 7 1 12-4 5-12 5-12z"/><path d="M3 21 14 10"/></svg>
+</section>
+
+</deck-stage>
+</body>
+</html>
