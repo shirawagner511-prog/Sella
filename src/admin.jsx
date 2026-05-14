@@ -138,7 +138,7 @@ const DailyProgramSection = ({ onToast }) => {
     sky:    'bg-sky-50 text-sky-700',
   };
   return (
-    <section id="overview" className="bg-white rounded-3xl shadow-card p-6 lg:p-8 anim-fade-up">
+    <section className="bg-white rounded-3xl shadow-card p-6 lg:p-8 anim-fade-up">
       <SectionHeader
         kicker="Today · Tel Aviv HQ"
         title="The full day, end-to-end"
