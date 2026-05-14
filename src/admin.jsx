@@ -14,7 +14,10 @@ const AdminHeader = ({ site, setSite, all, setAll }) => {
         <div className="hidden md:block w-px h-8 bg-forest-700/10" />
         <nav className="hidden md:flex items-center gap-1 text-[13px] text-ink-soft">
           {[['Overview','overview'],['Forecast','forecast'],['Satisfaction','satisfaction'],['Waste','waste'],['Sites','sites'],['Staffing','staffing']].map(([n,id],i)=>(
-            <button key={n} onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })} className={`px-3 py-1.5 rounded-full font-medium cursor-pointer ${i===0?'bg-forest-700 text-cream-50':'hover:bg-forest-700/5'}`}>{n}</button>
+            <button key={n} onClick={() => {
+              const el = document.getElementById(id);
+              if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 120, behavior: 'smooth' });
+            }} className={`px-3 py-1.5 rounded-full font-medium cursor-pointer ${i===0?'bg-forest-700 text-cream-50':'hover:bg-forest-700/5'}`}>{n}</button>
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-3">
