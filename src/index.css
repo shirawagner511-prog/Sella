@@ -59,6 +59,9 @@ body {
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+/* admin nav scroll offset — accounts for ViewSwitcher (fixed) + AdminHeader (sticky) */
+section[id] { scroll-margin-top: 130px; }
+
 /* entry animations */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
