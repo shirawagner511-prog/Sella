@@ -1,15 +1,18 @@
 class DeckStage extends HTMLElement {
   connectedCallback() {
-    this.slides = Array.from(this.querySelectorAll('section.slide'));
-    this.current = 0;
-    this._build();
-    this._scale();
-    window.addEventListener('resize', () => this._scale());
-    document.addEventListener('keydown', e => this._key(e));
-    this.addEventListener('click', e => {
-      if (e.target.closest('a, button, iframe, input')) return;
-      this._next();
-    });
+    // defer so the parser finishes adding child <section> elements first
+    setTimeout(() => {
+      this.slides = Array.from(this.querySelectorAll('section.slide'));
+      this.current = 0;
+      this._build();
+      this._scale();
+      window.addEventListener('resize', () => this._scale());
+      document.addEventListener('keydown', e => this._key(e));
+      this.addEventListener('click', e => {
+        if (e.target.closest('a, button, iframe, input')) return;
+        this._next();
+      });
+    }, 0);
   }
 
   _build() {
