@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Icon } from './icons';
 import { AIBadge, Pill, SellaLogo, DishIllustration } from './ui';
 import { TrendLine, Donut, BarChart, HeatGrid, PortionBar } from './charts';
-import { SITES, SAT_HEATMAP, NPS_TREND, STAFFING_HEATMAP, FORECAST, INTEGRATIONS, DAILY_PROGRAM } from './data';
+import { SITES, SAT_HEATMAP, NPS_TREND, STAFFING_HEATMAP, FORECAST, INTEGRATIONS, DAILY_PROGRAM, SELLA_SCORE } from './data';
 
 const AdminHeader = ({ site, setSite, all, setAll }) => {
   const [open, setOpen] = useState(false);
@@ -13,8 +13,8 @@ const AdminHeader = ({ site, setSite, all, setAll }) => {
         <SellaLogo size={22} sub />
         <div className="hidden md:block w-px h-8 bg-forest-700/10" />
         <nav className="hidden md:flex items-center gap-1 text-[13px] text-ink-soft">
-          {['Overview','Forecast','Satisfaction','Waste','Sites','Staffing'].map((n,i)=>(
-            <a key={n} className={`px-3 py-1.5 rounded-full font-medium cursor-pointer ${i===0?'bg-forest-700 text-cream-50':'hover:bg-forest-700/5'}`}>{n}</a>
+          {[['Overview','overview'],['Forecast','forecast'],['Satisfaction','satisfaction'],['Waste','waste'],['Sites','sites'],['Staffing','staffing']].map(([n,id],i)=>(
+            <button key={n} onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })} className={`px-3 py-1.5 rounded-full font-medium cursor-pointer ${i===0?'bg-forest-700 text-cream-50':'hover:bg-forest-700/5'}`}>{n}</button>
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-3">
@@ -71,7 +71,59 @@ const SectionHeader = ({ kicker, title, sub, right }) => (
   </div>
 );
 
-const DailyProgramSection = () => {
+const SellaScoreBanner = () => {
+  const [showBreakdown, setShowBreakdown] = useState(false);
+  return (
+    <section id="overview" className="bg-forest-700 rounded-3xl shadow-float p-6 lg:p-8 text-cream-50 anim-fade-up">
+      <div className="flex items-start justify-between flex-wrap gap-4">
+        <div>
+          <div className="text-[10.5px] uppercase tracking-[0.2em] text-cream-50/60 font-semibold">Sella Score · This week</div>
+          <div className="flex items-baseline gap-3 mt-1">
+            <div className="font-display text-[64px] font-semibold leading-none">{SELLA_SCORE.score}</div>
+            <div>
+              <Pill tone="gold"><Icon.Trend size={11}/> +{SELLA_SCORE.delta} pts this week</Pill>
+              <div className="text-[12px] text-cream-50/60 mt-1">Composite hospitality performance</div>
+            </div>
+          </div>
+        </div>
+        <div className="flex items-end gap-6 flex-wrap">
+          {SELLA_SCORE.components.map(c => (
+            <div key={c.label} className="text-center">
+              <Donut value={c.value} size={52} stroke={5} color="#C9A84C" track="rgba(255,255,255,0.15)" label={`${c.value}`}/>
+              <div className="text-[10px] text-cream-50/60 mt-1 max-w-[70px] leading-tight">{c.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="mt-4 flex items-center gap-4">
+        <div className="flex-1">
+          <TrendLine values={SELLA_SCORE.trend} h={48}/>
+        </div>
+        <button
+          onClick={() => setShowBreakdown(v => !v)}
+          className="text-[12px] font-semibold text-gold-400 hover:text-gold-300 transition-colors"
+        >
+          {showBreakdown ? 'Hide breakdown' : 'View breakdown →'}
+        </button>
+      </div>
+      {showBreakdown && (
+        <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
+          {SELLA_SCORE.components.map(c => (
+            <div key={c.label} className="bg-cream-50/10 rounded-2xl p-3">
+              <div className="text-[10.5px] uppercase tracking-[0.16em] text-cream-50/60 font-semibold">{c.label}</div>
+              <div className="font-display text-[28px] font-semibold text-gold-400 leading-none mt-1">{c.value}</div>
+              <div className="text-[11px] text-cream-50/50 mt-0.5">/ 100</div>
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+};
+
+const DailyProgramSection = ({ onToast }) => {
+  const [slackSent, setSlackSent] = useState(false);
+  const [showChannelPicker, setShowChannelPicker] = useState(false);
   const tiles = [
     { key: 'breakfast', label: 'Breakfast served', value: DAILY_PROGRAM.breakfast.served, target: DAILY_PROGRAM.breakfast.target, icon: '🥑', tone: 'gold',   sub: `of ${DAILY_PROGRAM.breakfast.target} forecast` },
     { key: 'shakes',    label: 'Wellness shakes',  value: DAILY_PROGRAM.shakes.served,    target: DAILY_PROGRAM.shakes.target,    icon: '🥤', tone: 'green',  sub: 'Free before 09:00' },
@@ -86,7 +138,7 @@ const DailyProgramSection = () => {
     sky:    'bg-sky-50 text-sky-700',
   };
   return (
-    <section className="bg-white rounded-3xl shadow-card p-6 lg:p-8 anim-fade-up">
+    <section id="overview" className="bg-white rounded-3xl shadow-card p-6 lg:p-8 anim-fade-up">
       <SectionHeader
         kicker="Today · Tel Aviv HQ"
         title="The full day, end-to-end"
@@ -119,17 +171,29 @@ const DailyProgramSection = () => {
         <div className="flex-1 min-w-[180px]">
           <b className="text-forest-700">Sella insight:</b> employees who booked a wellness class this morning have a 38% higher lunch satisfaction. Consider promoting the 12:15 HIIT Reset on Slack to fill the room.
         </div>
-        <button className="bg-forest-700 hover:bg-forest-600 text-cream-50 text-[12px] font-semibold rounded-full px-3 py-1.5 shrink-0">Send via Slack</button>
+        {slackSent ? (
+          <div className="flex items-center gap-1.5 text-[12px] font-semibold text-emerald-700 shrink-0"><Icon.Check size={13}/> Sent to #hospitality</div>
+        ) : showChannelPicker ? (
+          <div className="flex items-center gap-2 shrink-0">
+            {['#hospitality','#lunch-today','#all-tlv'].map(ch => (
+              <button key={ch} onClick={() => { setSlackSent(true); setShowChannelPicker(false); onToast?.('Insight shared on Slack', '💬'); }}
+                className="text-[11.5px] font-semibold bg-forest-700 text-cream-50 rounded-full px-2.5 py-1 hover:bg-forest-600">{ch}</button>
+            ))}
+          </div>
+        ) : (
+          <button onClick={() => setShowChannelPicker(true)} className="bg-forest-700 hover:bg-forest-600 text-cream-50 text-[12px] font-semibold rounded-full px-3 py-1.5 shrink-0">Send via Slack</button>
+        )}
       </div>
     </section>
   );
 };
 
-const ForecastSection = ({ site }) => {
+const ForecastSection = ({ site, onToast }) => {
+  const [staffApproved, setStaffApproved] = useState(false);
   const f = FORECAST.tlv;
   const currentSite = SITES.find(s => s.id === site) || SITES[0];
   return (
-    <section className="bg-white rounded-3xl shadow-card p-6 lg:p-8 anim-fade-up">
+    <section id="forecast" className="bg-white rounded-3xl shadow-card p-6 lg:p-8 anim-fade-up">
       <SectionHeader
         kicker="Tomorrow · Wed, May 15"
         title="Predicted attendance"
@@ -176,9 +240,15 @@ const ForecastSection = ({ site }) => {
               <div className="text-[14px] font-display font-semibold text-ink mt-0.5">{f.staffing.peak}</div>
               <div className="text-[11.5px] text-ink-muted mt-1">Currently scheduled: {f.staffing.current} · Recommended: {f.staffing.recommended}</div>
             </div>
-            <button className="mt-3 bg-forest-700 hover:bg-forest-600 text-cream-50 text-[12.5px] font-semibold rounded-full py-2 px-3 flex items-center justify-center gap-1.5">
-              Approve staffing plan <Icon.Check size={13}/>
-            </button>
+            {staffApproved ? (
+              <div className="mt-3 flex items-center justify-center gap-1.5 text-[12.5px] font-semibold text-emerald-700 bg-emerald-50 rounded-full py-2 px-3 border border-emerald-200">
+                <Icon.Check size={13}/> Plan approved
+              </div>
+            ) : (
+              <button onClick={() => { setStaffApproved(true); onToast?.('Staffing plan approved', '✓'); }} className="mt-3 bg-forest-700 hover:bg-forest-600 text-cream-50 text-[12.5px] font-semibold rounded-full py-2 px-3 flex items-center justify-center gap-1.5">
+                Approve staffing plan <Icon.Check size={13}/>
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -187,6 +257,7 @@ const ForecastSection = ({ site }) => {
 };
 
 const SatisfactionSection = () => {
+  const [showRework, setShowRework] = useState(false);
   const dishesPerf = [
     { label: 'Tagine',      value: 92, highlight: true },
     { label: 'Salmon',      value: 89 },
@@ -197,7 +268,7 @@ const SatisfactionSection = () => {
     { label: 'Caesar',      value: 58 },
   ];
   return (
-    <section className="bg-white rounded-3xl shadow-card p-6 lg:p-8 anim-fade-up">
+    <section id="satisfaction" className="bg-white rounded-3xl shadow-card p-6 lg:p-8 anim-fade-up">
       <SectionHeader
         kicker="This week"
         title="Satisfaction intelligence"
@@ -251,7 +322,22 @@ const SatisfactionSection = () => {
                 <div className="mt-2 p-2.5 rounded-xl bg-white text-[12px] text-ink-soft leading-snug">
                   <span className="font-semibold text-gold-700">Sella suggests:</span> rework with a smoked anchovy dressing and rye croutons, or rotate out. Three consecutive low scores from Berlin and NYC.
                 </div>
-                <button className="mt-2 text-[12px] text-forest-700 font-semibold underline-offset-4 hover:underline">Open rework brief →</button>
+                <button onClick={() => setShowRework(v => !v)} className="mt-2 text-[12px] text-forest-700 font-semibold underline-offset-4 hover:underline">
+                  {showRework ? '↑ Close brief' : 'Open rework brief →'}
+                </button>
+                {showRework && (
+                  <div className="mt-2 rounded-xl bg-white border border-forest-700/10 p-3 text-[12px] text-ink-soft space-y-1.5">
+                    <div className="font-semibold text-ink text-[12.5px]">Rework brief · Caesar Salad</div>
+                    <div><b>Issue:</b> 3 consecutive weeks below 65% satisfaction. Berlin (-18%), NYC (-12%).</div>
+                    <div><b>Proposed direction:</b> Smoked anchovy dressing + rye croutons + shaved parmesan.</div>
+                    <div><b>Test window:</b> 2 weeks starting May 20.</div>
+                    <div><b>Owner:</b> Chef Lena · deadline May 17.</div>
+                    <div className="flex gap-2 mt-2">
+                      <button className="bg-forest-700 text-cream-50 text-[11px] font-semibold rounded-full px-2.5 py-1">Assign to Chef Lena</button>
+                      <button className="text-[11px] font-semibold text-ink-soft border border-forest-700/15 rounded-full px-2.5 py-1">Rotate out instead</button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -283,8 +369,11 @@ const SatisfactionSection = () => {
   );
 };
 
-const WasteSection = () => (
-  <section className="bg-white rounded-3xl shadow-card p-6 lg:p-8 anim-fade-up">
+const WasteSection = ({ onToast }) => {
+  const [applied, setApplied] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+  return (
+  <section id="waste" className="bg-white rounded-3xl shadow-card p-6 lg:p-8 anim-fade-up">
     <SectionHeader kicker="This week" title="Waste &amp; cost intelligence" sub="Plate-level consumption signals feed back into procurement and recipe design." />
     <div className="grid grid-cols-12 gap-5">
       <div className="col-span-12 md:col-span-4">
@@ -325,10 +414,18 @@ const WasteSection = () => (
             Plant-based portions had <span className="font-semibold text-forest-700">94% consumption</span> this week.
           </div>
           <div className="text-[12.5px] text-ink-soft mt-2">Consider increasing plant-based allocation by <b>15%</b> next week. Expected ₪2,140 saved on protein and 18 kg less waste.</div>
-          <div className="mt-3 flex gap-2">
-            <button className="bg-forest-700 hover:bg-forest-600 text-cream-50 text-[12px] font-semibold rounded-full px-3 py-1.5 flex items-center gap-1"><Icon.Check size={12}/> Apply</button>
-            <button className="text-[12px] font-semibold text-ink-soft rounded-full px-3 py-1.5 hover:bg-white/60">Dismiss</button>
-          </div>
+          {!dismissed && (
+            <div className="mt-3 flex gap-2">
+              {applied ? (
+                <div className="flex items-center gap-1.5 text-[12px] font-semibold text-emerald-700"><Icon.Check size={13}/> Applied to next week</div>
+              ) : (
+                <>
+                  <button onClick={() => { setApplied(true); onToast?.('Suggestion applied', '🌿'); }} className="bg-forest-700 hover:bg-forest-600 text-cream-50 text-[12px] font-semibold rounded-full px-3 py-1.5 flex items-center gap-1"><Icon.Check size={12}/> Apply</button>
+                  <button onClick={() => { setDismissed(true); }} className="text-[12px] font-semibold text-ink-soft rounded-full px-3 py-1.5 hover:bg-white/60">Dismiss</button>
+                </>
+              )}
+            </div>
+          )}
         </div>
       </div>
       <div className="col-span-12">
@@ -354,10 +451,13 @@ const WasteSection = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
-const BenchmarkSection = () => (
-  <section className="bg-white rounded-3xl shadow-card p-6 lg:p-8 anim-fade-up">
+const BenchmarkSection = () => {
+  const [expanded, setExpanded] = useState(null);
+  return (
+  <section id="sites" className="bg-white rounded-3xl shadow-card p-6 lg:p-8 anim-fade-up">
     <SectionHeader kicker="Cross-site" title="Site benchmarking" sub="Same metrics, normalized for headcount and tenure. The crown shows this period's leader." />
     <div className="overflow-x-auto -mx-2">
       <table className="w-full text-[13px]">
@@ -370,7 +470,8 @@ const BenchmarkSection = () => (
         </thead>
         <tbody>
           {SITES.map(s => (
-            <tr key={s.id} className="border-t border-forest-700/5 hover:bg-cream-50">
+            <React.Fragment key={s.id}>
+            <tr className="border-t border-forest-700/5 hover:bg-cream-50">
               <td className="px-2 py-3.5">
                 <div className="flex items-center gap-2 font-display font-semibold text-ink">
                   <span className="text-base">{s.country}</span> {s.name}
@@ -394,18 +495,37 @@ const BenchmarkSection = () => (
                 <span className={`font-semibold ${s.nps >= 60 ? 'text-emerald-700' : s.nps >= 50 ? 'text-gold-700' : 'text-rose-700'}`}>+{s.nps}</span>
               </td>
               <td className="px-2 py-3.5 text-right">
-                <button className="text-[12px] font-semibold text-forest-700 underline-offset-4 hover:underline">Open →</button>
+                <button onClick={() => setExpanded(expanded === s.id ? null : s.id)} className="text-[12px] font-semibold text-forest-700 underline-offset-4 hover:underline">
+                  {expanded === s.id ? 'Close ↑' : 'Open →'}
+                </button>
               </td>
             </tr>
+            {expanded === s.id && (
+              <tr key={s.id + '-detail'} className="bg-forest-50">
+                <td colSpan={7} className="px-4 py-4">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-[12px]">
+                    <div><div className="text-[10.5px] uppercase tracking-[0.16em] text-ink-muted font-semibold">Weekly satisfaction</div><div className="font-display text-[22px] font-semibold text-forest-700 mt-0.5">{s.sat} / 5</div></div>
+                    <div><div className="text-[10.5px] uppercase tracking-[0.16em] text-ink-muted font-semibold">NPS</div><div className="font-display text-[22px] font-semibold text-forest-700 mt-0.5">+{s.nps}</div></div>
+                    <div><div className="text-[10.5px] uppercase tracking-[0.16em] text-ink-muted font-semibold">Forecast accuracy</div><div className="font-display text-[22px] font-semibold text-forest-700 mt-0.5">{s.forecastAcc}%</div></div>
+                    <div><div className="text-[10.5px] uppercase tracking-[0.16em] text-ink-muted font-semibold">Waste rate</div><div className={`font-display text-[22px] font-semibold mt-0.5 ${s.waste < 10 ? 'text-emerald-700' : s.waste < 12 ? 'text-gold-700' : 'text-rose-700'}`}>{s.waste}%</div></div>
+                  </div>
+                </td>
+              </tr>
+            )}
+            </React.Fragment>
           ))}
         </tbody>
       </table>
     </div>
   </section>
-);
+  );
+};
 
-const StaffingSection = () => (
-  <section className="bg-white rounded-3xl shadow-card p-6 lg:p-8 anim-fade-up">
+const StaffingSection = ({ onToast }) => {
+  const [showOptions, setShowOptions] = useState(false);
+  const [resolvedOption, setResolvedOption] = useState(null);
+  return (
+  <section id="staffing" className="bg-white rounded-3xl shadow-card p-6 lg:p-8 anim-fade-up">
     <SectionHeader kicker="This week · Tel Aviv HQ" title="Staffing optimizer" sub="Predicted load by half-hour. Plan adjusts automatically; you keep the final say." />
     <div className="grid grid-cols-12 gap-5">
       <div className="col-span-12 lg:col-span-8">
@@ -437,7 +557,24 @@ const StaffingSection = () => (
             Thursday 12:30 — projected <span className="text-rose-700">40% over capacity</span> at Tel Aviv HQ.
           </div>
           <div className="text-[12px] text-ink-soft mt-2">Move 2 servers from Herzliya, or push the all-hands by 30 min. Both options drafted.</div>
-          <button className="mt-2 bg-forest-700 hover:bg-forest-600 text-cream-50 text-[12.5px] font-semibold rounded-full px-3 py-1.5">Review options</button>
+          {resolvedOption ? (
+            <div className="mt-2 flex items-center gap-1.5 text-[12px] font-semibold text-emerald-700"><Icon.Check size={13}/> {resolvedOption}</div>
+          ) : showOptions ? (
+            <div className="mt-2 space-y-2">
+              {[
+                { key: 'servers', label: 'Move 2 servers from Herzliya', sub: 'Approved by Herzliya ops · 08:30' },
+                { key: 'allhands', label: 'Push all-hands to 14:30', sub: 'Calendar invite queued · notify 2h before' },
+              ].map(opt => (
+                <button key={opt.key} onClick={() => { setResolvedOption(opt.label); onToast?.('Option applied', '✓'); }}
+                  className="w-full text-left rounded-xl bg-white border border-forest-700/15 p-3 hover:border-forest-700/40 transition-colors">
+                  <div className="text-[12.5px] font-semibold text-ink">{opt.label}</div>
+                  <div className="text-[11px] text-ink-muted mt-0.5">{opt.sub}</div>
+                </button>
+              ))}
+            </div>
+          ) : (
+            <button onClick={() => setShowOptions(true)} className="mt-2 bg-forest-700 hover:bg-forest-600 text-cream-50 text-[12.5px] font-semibold rounded-full px-3 py-1.5">Review options</button>
+          )}
         </div>
         <div className="rounded-[20px] p-5 bg-cream-50">
           <div className="text-[11px] uppercase tracking-[0.18em] text-ink-muted font-semibold mb-2">This week&apos;s staffing</div>
@@ -461,7 +598,8 @@ const StaffingSection = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 const SustainabilitySection = () => (
   <section className="bg-white rounded-3xl shadow-card p-6 lg:p-8 anim-fade-up">
@@ -525,9 +663,22 @@ const ConnectedSystems = () => (
 export const AdminView = () => {
   const [site, setSite] = useState('tlv');
   const [all, setAll] = useState(false);
+  const [toast, setToast] = useState(null);
+  const showToast = (message, icon = '✓') => {
+    setToast({ message, icon });
+    setTimeout(() => setToast(null), 2800);
+  };
   return (
     <div className="min-h-screen bg-[#EDE6D6]">
       <AdminHeader site={site} setSite={setSite} all={all} setAll={setAll} />
+      {toast && (
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[999] pointer-events-none">
+          <div className="bg-forest-700 text-cream-50 px-5 py-3 rounded-2xl shadow-float flex items-center gap-2.5 text-[13px] font-semibold whitespace-nowrap" style={{animation:'fadeIn 0.2s ease'}}>
+            <span className="text-base">{toast.icon}</span>
+            <span>{toast.message}</span>
+          </div>
+        </div>
+      )}
       <main className="max-w-[1480px] mx-auto px-4 lg:px-6 py-6 lg:py-8 space-y-5 lg:space-y-6 grain">
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div>
@@ -541,12 +692,13 @@ export const AdminView = () => {
             <Pill tone="red"><Icon.AlertTriangle size={11}/> 1 capacity alert</Pill>
           </div>
         </div>
-        <DailyProgramSection />
-        <ForecastSection site={site} />
+        <SellaScoreBanner />
+        <DailyProgramSection onToast={showToast} />
+        <ForecastSection site={site} onToast={showToast} />
         <SatisfactionSection />
-        <WasteSection />
+        <WasteSection onToast={showToast} />
         <BenchmarkSection />
-        <StaffingSection />
+        <StaffingSection onToast={showToast} />
         <SustainabilitySection />
         <ConnectedSystems />
         <footer className="text-center py-6 text-[11.5px] text-ink-muted">

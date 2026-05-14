@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import { Icon } from './icons';
 import { AIBadge, Card, DishIllustration, Pill, SectionTitle } from './ui';
 import { SHAKES, WELLNESS_CLASSES, WELLNESS_WEEK, WELLNESS_STREAK, PERKS } from './data';
+
+const WEEK_LABELS = ['This week', 'Next week', 'Week +2', 'Week +3'];
 
 const WellnessHero = () => {
   const next = WELLNESS_CLASSES.find(c => c.recommended) || WELLNESS_CLASSES[2];
@@ -123,7 +126,9 @@ const PerksRow = () => (
 );
 
 export const WellnessScreen = ({ bookings, toggleJoin }) => {
+  const [weekOffset, setWeekOffset] = useState(0);
   const isBooked = (id) => bookings.includes(id);
+  const weekLabel = WEEK_LABELS[weekOffset % WEEK_LABELS.length];
   return (
     <div className="pb-28 pt-24">
       <div className="px-5 pt-3 pb-3">
@@ -133,12 +138,32 @@ export const WellnessScreen = ({ bookings, toggleJoin }) => {
       <WellnessHero />
       <ShakeBar />
       <div className="px-5 mt-5">
-        <SectionTitle kicker="Today" title="Classes" right={<button className="text-[12px] font-semibold text-forest-700">Week ›</button>}/>
-        <div className="space-y-2.5 stagger">
-          {WELLNESS_CLASSES.map(c => (
-            <ClassRow key={c.id} cls={c} joined={isBooked(c.id)} toggleJoin={toggleJoin}/>
-          ))}
-        </div>
+        <SectionTitle
+          kicker={weekLabel}
+          title="Classes"
+          right={
+            <button
+              onClick={() => setWeekOffset(o => (o + 1) % WEEK_LABELS.length)}
+              className="text-[12px] font-semibold text-forest-700 flex items-center gap-1 bg-forest-50 px-3 py-1.5 rounded-full hover:bg-forest-100 transition-colors"
+            >
+              {weekOffset < WEEK_LABELS.length - 1 ? 'Week ›' : '← Back'}
+            </button>
+          }
+        />
+        {weekOffset > 0 ? (
+          <div className="rounded-[20px] bg-cream-50 border border-forest-700/10 p-5 text-center">
+            <div className="text-3xl mb-2">📅</div>
+            <div className="font-display font-semibold text-[15px] text-ink">{weekLabel} schedule</div>
+            <div className="text-[12.5px] text-ink-soft mt-1">Sella is generating your personalized class plan.<br/>Check back tomorrow morning.</div>
+            <div className="mt-3 flex justify-center"><AIBadge>Powered by Sella AI</AIBadge></div>
+          </div>
+        ) : (
+          <div className="space-y-2.5 stagger">
+            {WELLNESS_CLASSES.map(c => (
+              <ClassRow key={c.id} cls={c} joined={isBooked(c.id)} toggleJoin={toggleJoin}/>
+            ))}
+          </div>
+        )}
       </div>
       <PerksRow />
       <div className="px-5 mt-6 flex justify-center">
