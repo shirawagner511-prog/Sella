@@ -9,7 +9,7 @@ const AdminHeader = ({ site, setSite, all, setAll }) => {
   const current = SITES.find(s => s.id === site) || SITES[0];
   return (
     <header className="sticky top-0 z-30 bg-cream-50/95 backdrop-blur-md border-b border-forest-700/10">
-      <div className="max-w-[1480px] mx-auto px-6 py-4 flex items-center gap-6">
+      <div className="max-w-[1480px] mx-auto px-4 lg:px-6 py-3 lg:py-4 flex items-center gap-3 lg:gap-6 flex-wrap">
         <SellaLogo size={22} sub />
         <div className="hidden md:block w-px h-8 bg-forest-700/10" />
         <nav className="hidden md:flex items-center gap-1 text-[13px] text-ink-soft">
@@ -114,12 +114,12 @@ const DailyProgramSection = () => {
           );
         })}
       </div>
-      <div className="mt-4 flex items-center gap-3 text-[12.5px] text-ink-soft bg-forest-50 rounded-2xl px-4 py-3">
-        <Icon.Sparkles size={14} className="text-gold-700 shrink-0"/>
-        <div>
+      <div className="mt-4 flex flex-wrap items-start gap-3 text-[12.5px] text-ink-soft bg-forest-50 rounded-2xl px-4 py-3">
+        <Icon.Sparkles size={14} className="text-gold-700 shrink-0 mt-0.5"/>
+        <div className="flex-1 min-w-[180px]">
           <b className="text-forest-700">Sella insight:</b> employees who booked a wellness class this morning have a 38% higher lunch satisfaction. Consider promoting the 12:15 HIIT Reset on Slack to fill the room.
         </div>
-        <button className="ml-auto bg-forest-700 hover:bg-forest-600 text-cream-50 text-[12px] font-semibold rounded-full px-3 py-1.5 shrink-0">Send via Slack</button>
+        <button className="bg-forest-700 hover:bg-forest-600 text-cream-50 text-[12px] font-semibold rounded-full px-3 py-1.5 shrink-0">Send via Slack</button>
       </div>
     </section>
   );
@@ -260,7 +260,7 @@ const SatisfactionSection = () => {
           <div className="rounded-[20px] bg-cream-50 p-5">
             <div className="text-[11px] uppercase tracking-[0.18em] text-ink-muted font-semibold mb-1">Top dishes · % positive</div>
             <div className="font-display font-semibold text-[16px] text-ink mb-3">All sites · last 7 days</div>
-            <BarChart data={dishesPerf} w={620} h={140}/>
+            <BarChart data={dishesPerf} h={140}/>
           </div>
         </div>
         <div className="col-span-12 lg:col-span-5">
@@ -275,7 +275,7 @@ const SatisfactionSection = () => {
                 <div className="text-[11.5px] text-ink-muted mt-1">Last 30 days</div>
               </div>
             </div>
-            <div className="mt-3"><TrendLine values={NPS_TREND} w={340} h={84}/></div>
+            <div className="mt-3"><TrendLine values={NPS_TREND} h={84}/></div>
           </div>
         </div>
       </div>
